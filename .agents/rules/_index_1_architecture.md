@@ -8,6 +8,7 @@
 @[Git Commit Rules](./1-core/git_commit_rules.md)
 
 ## 2. Business & System Analysis (`2-analysis/`)
+@[Phương pháp luận Systems Thinking & Mối liên hệ nhân quả](./2-analysis/SystemsThinking.md)
 @[Bước 1: 5 Câu hỏi Khảo sát & Hiểu bài toán](./2-analysis/1_problem_survey_5_questions.md)
 @[Bước 2: 7 Câu hỏi Truy vết & Bóc tách Actor](./2-analysis/2_actor_identification_7_questions.md)
 @[Bước 3: Thiết kế Sơ đồ Ngữ cảnh DFD Level 0](./2-analysis/3_dfd_level_0_standard.md)

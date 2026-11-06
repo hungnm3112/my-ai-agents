@@ -14,7 +14,8 @@ Mọi thành phần kỹ thuật trong dự án không được tự ý sinh ra 
 
 *(Tài liệu giải thích chi tiết mối liên hệ nhân quả xuyên suốt các bước xem tại: [`md/analysis/SystemsThinking.md`](../../../md/analysis/SystemsThinking.md)).*
 
-### 2. Kiểm soát Chuyển Giai đoạn (Phase Gate)
+### 2. Kiểm soát Chuyển Giai đoạn (Phase Gate) & Vòng lặp Hỏi - Đáp
+- **Tuân thủ tuyệt đối Vòng lặp Hỏi - Đáp ([`clarify_and_suggest_rules.md`](./clarify_and_suggest_rules.md)):** Ở mỗi bước phân tích, bắt buộc đi qua từng câu hỏi tiêu chuẩn bằng cách đưa ra **3 đáp án gợi ý + 1 tùy chọn mở** (`ask_question`), lặp lại cho đến khi chốt được đáp án từng câu, sau đó **hiển thị bảng Tổng hợp Q & A để người dùng xác nhận lần cuối** rồi mới được phép sinh file `.md`.
 - **Không tự ý xác nhận các logic đang giả định.** Khi user chưa xác nhận hoặc chỉ xác nhận 1 phần các vấn đề giả định, cần **hỏi lại** để user xác nhận, không tự ý suy luận rồi xác nhận.
 - **Không nhảy bước:** Bắt buộc hoàn thành và chốt tài liệu thiết kế của bước trước rồi mới chuyển sang bước tiếp theo (tuyệt đối không viết Schema/Code khi chưa chốt bảng đặc tả Database và API).
 - **Báo cáo & Đợi Xác nhận:** Sau khi hoàn thành mỗi bước hoặc khối công việc, hãy **báo cáo kết quả và DỪNG LẠI** chờ người dùng xác nhận ("Ok", "Tiếp tục") mới thực hiện bước tiếp theo.

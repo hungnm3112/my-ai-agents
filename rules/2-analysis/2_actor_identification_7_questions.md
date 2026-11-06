@@ -29,7 +29,7 @@ Cuối tài liệu Bước 2 bắt buộc vẽ **Sơ đồ Phân loại Actor & 
 - **Quy tắc định dạng chống tràn & đè chữ:** Sử dụng block `init` để cấu hình `fontSize: '14px'`, `subGraphTitleMargin: { 'top': 25, 'bottom': 45 }`, và `direction LR` cho hàng Actor con người:
 ```mermaid
 %%{init: {
-  'theme': 'base',
+  'theme': 'dark',
   'themeVariables': {
     'fontSize': '14px'
   },

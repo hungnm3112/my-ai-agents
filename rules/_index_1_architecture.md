@@ -2,6 +2,7 @@
 
 ## 1. Core Rules (`1-core/`)
 @[Workflow Phases](./1-core/workflow_phases.md)
+@[Clarify & Suggest Rules](./1-core/clarify_and_suggest_rules.md)
 @[Tech Stack & Monorepo](./1-core/tech_stack_and_monorepo.md)
 @[Naming Conventions](./1-core/naming_conventions.md)
 @[TypeScript Rules](./1-core/typescript_rules.md)

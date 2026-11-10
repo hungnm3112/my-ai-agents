@@ -10,7 +10,7 @@
 
 | Thao tác | Method | HTTP Header | Cấu trúc `{ "data": ... }` bắt buộc |
 |---|---|:---:|---|
-| **1. Danh sách phân trang** | `GET /resources` | `200 OK` | `{ "data": { "items": [...], "pagination": { "page": 1, "limit": 20, "total": 100, "totalPages": 5 } } }` *(Nếu rỗng vẫn trả `200 OK` với `items: []`, không trả `404`)* |
+| **1. Danh sách phân trang** | `GET /resources` | `200 OK` | `{ "data": { "items": [...], "pagination": { "page": 1, "limit": 20, "total": 100, "total_pages": 5 } } }` *(Nếu rỗng vẫn trả `200 OK` với `items: []`, không trả `404`)* |
 | **2. Cây / Danh sách phẳng** | `GET /resources/tree` | `200 OK` | `{ "data": [ { "_id": "...", "name": "...", "children": [] } ] }` |
 | **3. Chi tiết / Tra cứu đơn** | `GET /resources/:id` | `200 OK` | `{ "data": { "_id": "...", ... } }` |
 | **4. Tạo mới đồng bộ** | `POST /resources` | `201 Created` | Trả **toàn bộ object bản ghi vừa tạo** (gồm `_id`, các trường `default` và `timestamps`). |

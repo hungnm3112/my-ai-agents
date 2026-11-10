@@ -2,8 +2,12 @@
 
 ### 1. Quy ước Định danh URI & Thứ tự Route
 - **Prefix bắt buộc:** `/api/v1/<resources>`.
-- **Resource Naming:** Dùng **danh từ số nhiều**, chữ thường `kebab-case`, trùng tên Collection DB (dấu `_` đổi thành `-`). **CẤM** đưa động từ vào URI.
-- **Thứ tự Route trong Controller:** Các route tĩnh/đặc thù (`GET /tree`, `GET /lookup`, `GET /trending`) **bắt buộc khai báo phía trên** route động `GET /:id`.
+- **Resource Naming:** Đặt theo **danh từ số nhiều**, chữ thường `kebab-case` của **Tài nguyên Nghiệp vụ (Domain Resource / Virtual Resource)** thay vì phụ thuộc cứng vào tên bảng vật lý trong DB:
+  - **CRUD 1 bảng đơn giản:** Đặt theo tên thực thể nghiệp vụ tương ứng (dấu `_` đổi thành `-`, ví dụ: `/api/v1/daily-checklists`).
+  - **Truy vấn nhiều bảng / nhiều DB phục vụ 1 phân hệ chính:** Đặt theo `<primary-domain-resources>/<sub-resources>` (ví dụ: `/api/v1/daily-checklists/permissions`, `/api/v1/daily-checklists/statistics`).
+  - **Tổng hợp liên phân hệ (Composite / Virtual Resource):** Đặt theo danh từ của khái niệm tổng hợp (ví dụ: `/api/v1/dashboards/overview`, `/api/v1/attendance-reports`).
+  - **CẤM** đưa động từ vào URI.
+- **Thứ tự Route trong Controller:** Các route tĩnh/đặc thù (`GET /tree`, `GET /lookup`, `GET /trending`, `GET /statistics`, `GET /permissions`) **bắt buộc khai báo phía trên** route động `GET /:id`.
 
 ### 2. Quy ước HTTP Methods & Tính Idempotency
 - **`GET` (Safe, Idempotent):** Truy vấn danh sách, chi tiết `/:id`, cây `/tree`, tra cứu `/lookup`.

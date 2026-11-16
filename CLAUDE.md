@@ -23,7 +23,7 @@ Before answering questions, proposing solutions, or writing any code, you must b
    - Any `README.md` at the root, in `frontend/`, or in `backend/`
 
 3. **Project configuration & Source structure (when code exists)**
-   - Root `package.json`, `frontend/package.json`, `backend/package.json`
+   - Root `package.json`, `pnpm-workspace.yaml`, `frontend/package.json`, `backend/package.json`
    - `frontend/src/`: routing (`app/`), `components/`, `lib/`, `hooks/`, `types/`
    - `backend/src/`: modules, controllers, services, schemas, DTOs, guards, filters
 
@@ -39,7 +39,7 @@ Before answering questions, proposing solutions, or writing any code, you must b
    - Follow the strict traceability chain: `Bước 1: Khảo sát & Hiểu bài toán (5 Câu hỏi) -> Bước 2: Truy vết & Bóc tách Actor (7 Câu hỏi) -> Bước 3: Sơ đồ Ngữ cảnh DFD Level 0 -> Bước 4: Sơ đồ Phân rã Chức năng (FDD 3 Cấp) -> Bước 5: Đặc tả Database -> Bước 6: Tài liệu RESTful API -> Bước 7: Viết Code`.
    - Report results at the end of each phase/task and **STOP to wait for confirmation** before moving to the next phase.
 2. **Read before you write**: Never assume. If a file, function, or requirement is not clear, ask me or read it first instead of guessing.
-3. **Follow existing conventions**: Match the project's naming (`snake_case` for directories, files, variables, functions, DB fields, API query params & payloads; `PascalCase` for classes & MongoDB Collection names; `UPPER_SNAKE_CASE` for constants; `kebab-case` for API endpoints & URL routes), folder structure, and API response format (`{ data }` / `{ error }` without `statusCode` in body, `PUT` instead of `PATCH`).
+3. **Follow existing conventions**: Match the project's naming (`snake_case` for directories, files, variables, functions, DB fields, API query params & payloads; `PascalCase` for classes & MongoDB Collection names; `UPPER_SNAKE_CASE` for constants; `kebab-case` for API endpoints & URL routes), folder structure, package manager (**always use `pnpm` / `pnpm dlx`**, never `npm`, `npx`, or `yarn`), and API response format (`{ data }` / `{ error }` without `statusCode` in body, `PUT` instead of `PATCH`).
 4. **Minimal, focused changes**: Change only what is necessary for the task. Do not refactor unrelated code without asking.
 5. **Think before coding**: For non-trivial tasks, briefly outline your plan (affected files, approach, trade-offs) in Vietnamese before implementing.
 6. **Production-quality code**: Strict TypeScript (`strict: true`, no `any`), proper validation (`class-validator`), security (`sanitizeContent` on write, `sha512` password/token hashing, RBAC & Scope Guards), and performance (`.select()`, `.lean()`, proper indexing, max 300 lines per file).

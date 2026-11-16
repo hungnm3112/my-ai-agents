@@ -1,8 +1,8 @@
 ## QUY TẮC MONGOOSE SCHEMA & TỐI ƯU TRUY VẤN
 
 ### 1. Khai báo Mongoose Schema
-- Đặt trong thư mục `schemas/` của từng module (`*.schema.ts`).
-- Bắt buộc dùng `@Schema({ collection: '<ten_bang_snake_case>', timestamps: true })` và `@Prop()` khai báo rõ `type`, `required`, `default`, `index`.
+- Đặt trong thư mục `models/<module_name>/` (hoặc `schemas/` của từng module).
+- Bắt buộc cấu hình tên Collection tường minh theo chuẩn **`PascalCase`**: `{ collection: 'YourCollectionName', timestamps: true }` (ví dụ: `{ collection: 'DailyChecklist', timestamps: true }`) và khai báo rõ `type`, `required`, `default`, `index`.
 
 ### 2. Tối ưu Truy vấn (Read, Update & Aggregation)
 - **Read:** Luôn dùng `.select(...)` chỉ lấy các trường cần thiết và `.lean()` cho truy vấn chỉ đọc.

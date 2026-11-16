@@ -13,7 +13,9 @@
        - *Bảng cấu hình hệ thống & Phân quyền:* `roles` (dùng `name` unique: `admin`, `warehouse_manager`...), `permissions`, `refresh_tokens`.
        - *Bảng danh mục phân loại ngắn / chọn theo tên:* `units` (Đơn vị tính: "Cái", "Hộp" ➔ dùng `name` unique), `categories` (Danh mục phân cấp ➔ dùng `name` + `parent_id`), `warehouses` (Kho hàng ➔ dùng `name` unique).
        - *Sản phẩm thương mại đã có chuẩn mã chuyên dụng:* Sản phẩm (`products`) đã có mã `sku` và `barcode` làm định danh thương mại duy nhất ➔ KHÔNG sinh thêm trường `ID` để tránh trùng lặp 3 loại mã.
-2. **Tên bảng và tên trường:** Dùng `snake_case` toàn bộ (`parent_id`, `customer_id`, `total_amount`, `unsign_search`). Ngoại lệ: `_id`, `ID`, `createdAt`, `updatedAt`.
+2. **Tên Collection (Bảng) & Tên Trường (Fields):**
+   - **Tên Collection (Bảng):** Bắt buộc dùng **`PascalCase`** và khai báo tường minh trong Mongoose Schema: `{ collection: 'YourCollectionName' }` (ví dụ: `'DailyChecklist'`, `'Employee'`, `'Branch'`, `'EmployeeLatestLocation'`).
+   - **Tên Trường (Fields):** Dùng **`snake_case`** toàn bộ (`employee_id`, `branch_id`, `parent_id`, `customer_id`, `total_amount`, `unsign_search`). Ngoại lệ: `_id`, `ID`, `createdAt`, `updatedAt`.
 3. **Trạng thái (`status`):** Mặc định `status: Number, Index, true, default = 1` (`0` dừng hoạt động/khóa, `1` đang hoạt động). Riêng cá thể sản phẩm cuối + QR dùng `status: Boolean, default: false`.
 4. **Tìm kiếm tiếng Việt (`unsign_search`):** `String, Index`. Server tự sinh khi tạo/sửa, lưu **cả nội dung có dấu và không dấu (chữ thường)** của các trường tìm kiếm chính.
 5. **Mật khẩu & Token:** Mã hóa **`sha512`**, khai báo `select: false` cho `password` trong Schema.

@@ -4,6 +4,7 @@ Bộ quy chuẩn, quy tắc thiết kế kiến trúc và triển khai dự án 
 
 ## Cấu trúc thư mục
 
+- `CLAUDE.md`: Cấu hình Role, Working Principles và chỉ dẫn gốc tập trung cho AI Agent (được nạp từ `CLAUDE.md` ở root của từng dự án thông qua `@.agents/CLAUDE.md`).
 - `/rules/`: Hệ thống các quy tắc và hướng dẫn Agent.
   - `1-core/`: Quy tắc cốt lõi (Workflow, Tech Stack, Naming, TypeScript, Git Commit).
   - `2-analysis/`: Phương pháp luận Systems Thinking, khảo sát bài toán, bóc tách Actor, DFD Level 0, FDD & RBAC.

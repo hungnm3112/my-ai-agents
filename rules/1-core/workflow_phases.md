@@ -12,7 +12,7 @@ Mọi thành phần kỹ thuật trong dự án không được tự ý sinh ra 
 6. **[Bước 6 — Thiết kế & Viết Tài liệu RESTful API](../4-api/api_doc_and_postman_standard.md)** ➔ `md/analysis/6-api-specification.md` (hoặc `md/analysis/api-module-xx.md`)
 7. **[Bước 7 — Triển khai Code Backend (NestJS) & Frontend (Next.js)](../5-backend/nestjs_architecture.md)**
 
-*(Tài liệu giải thích chi tiết mối liên hệ nhân quả xuyên suốt các bước xem tại: [`md/analysis/SystemsThinking.md`](../../../md/analysis/SystemsThinking.md)).*
+*(Tài liệu giải thích chi tiết mối liên hệ nhân quả xuyên suốt các bước xem tại: [`../2-analysis/SystemsThinking.md`](../2-analysis/SystemsThinking.md)).*
 
 ### 2. Kiểm soát Chuyển Giai đoạn (Phase Gate) & Vòng lặp Hỏi - Đáp
 - **Tuân thủ tuyệt đối Vòng lặp Hỏi - Đáp ([`clarify_and_suggest_rules.md`](./clarify_and_suggest_rules.md)):** Ở mỗi bước phân tích, bắt buộc đi qua từng câu hỏi tiêu chuẩn bằng cách đưa ra **3 đáp án gợi ý + 1 tùy chọn mở** (`ask_question`), lặp lại cho đến khi chốt được đáp án từng câu, sau đó **hiển thị bảng Tổng hợp Q & A để người dùng xác nhận lần cuối** rồi mới được phép sinh file `.md`.

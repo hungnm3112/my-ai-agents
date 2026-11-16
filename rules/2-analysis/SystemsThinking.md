@@ -23,7 +23,7 @@ flowchart TD
         Q2["Câu 2: Hiện tại đang làm như thế nào?"]
         Q3["Câu 3: Vấn đề (Nỗi đau) hiện tại là gì?"]
         Q4["Câu 4: Ai là người tham gia sử dụng?"]
-        DEC["Chốt Quyết định Kiến trúc<br/>([Giả định] ➔ [Đã xác nhận])"]
+        DEC["Chốt Quyết định Kiến trúc<br/>(Vòng lặp Q&A 3 đáp án ➔ [Đã xác nhận])"]
         Q5["Câu 5: Kết quả mong muốn là gì?"]
     end
 
@@ -47,14 +47,14 @@ flowchart TD
     end
 
     subgraph B5["Bước 5: Thiết kế Cơ sở Dữ liệu (Database)"]
-        COL["Danh sách Bảng (Collections)<br/>(Thực thể / Chứng từ / Sổ cái)"]
-        FLD["Bảng Đặc tả 4 Cột (Fields)<br/>(_id/ID, Input, unsign_search, ref)"]
+        COL["Danh sách Bảng (Collections - PascalCase)<br/>(Thực thể / Chứng từ / Sổ cái)"]
+        FLD["Bảng Đặc tả 4 Cột (Fields - snake_case)<br/>(_id/ID, Input, unsign_search, ref)"]
         REL["Dây Khóa ngoại (ref) &<br/>Ràng buộc Chặn xóa 409"]
     end
 
     subgraph B6["Bước 6: Thiết kế Tài liệu RESTful API"]
-        API_URI["Định danh Endpoint URI<br/>(/api/v1/resources - kebab-case)"]
-        API_MET["HTTP Methods & Payload/Query<br/>(GET, POST, PUT, DELETE)"]
+        API_URI["Định danh Endpoint URI (kebab-case)<br/>(Domain / Virtual Resource)"]
+        API_MET["HTTP Methods & Payload/Query<br/>(GET, POST, PUT, DELETE - snake_case)"]
         API_ERR["Guards Phân quyền RBAC &<br/>8 Tầng Kiểm soát Lỗi (400..500)"]
     end
 
@@ -115,7 +115,7 @@ flowchart TD
 | **Câu 3** | **Vấn đề (Nỗi đau) hiện tại là gì?** | Tìm từng điểm nghẽn, sai sót, rủi ro trong quy trình ở Câu 2 để chuyển hóa trực tiếp thành **Mục tiêu hệ thống (System Objectives)**. | • **Bước 0:** Các rào cản/nỗi đau trong đề bài.<br>• **Bước 1 (Câu 2):** Các bước thủ công gây tốn thời gian hoặc dễ nhầm lẫn. | Bảng 3 cột:<br>`Vấn đề hiện tại \| Hệ quả \| Mục tiêu hệ thống tương ứng` |
 | **Câu 4** | **Ai là người tham gia sử dụng?** | Phác thảo danh sách sơ bộ (chưa chuẩn hóa) những nhóm người hoặc đối tượng có chạm vào quy trình. | • **Bước 0:** Đối tượng người dùng nêu trong đề bài.<br>• **Bước 1 (Câu 2):** Những người thực hiện các bước trong quy trình hiện tại. | Bảng 3 cột:<br>`Nhóm đối tượng (thô) \| Căn cứ trong đề \| Nhu cầu chính` |
 | **Câu 5** | **Kết quả mong muốn là gì?** | Định nghĩa **Tiêu chí nghiệm thu (Acceptance Criteria)** đo lường được cho từng mục tiêu hệ thống. | **Bước 1 (Câu 3):** Cột *"Mục tiêu hệ thống tương ứng"* vừa suy ra từ các nỗi đau. | Bảng 2 cột:<br>`Mục tiêu hệ thống \| Tiêu chí đạt cụ thể (kiểm chứng được)` |
-| **Chốt Bước 1** | **Làm rõ `[Giả định]` & Chốt Quyết định Kiến trúc** | Khóa chặt các chi tiết đề bài chưa nói rõ (hỏi tối đa 3 câu trọng tâm) để không phải đoán mò ở các bước sau. | Toàn bộ câu trả lời từ **Câu 1 đến Câu 5** của Bước 1. | Bảng tổng hợp **Các quyết định nghiệp vụ & kiến trúc `[Đã xác nhận]`**. |
+| **Chốt Bước 1** | **Vòng lặp Hỏi - Đáp (Q&A Loop) & Chốt Quyết định Kiến trúc** | Trình bày từng câu hỏi kèm **3 đáp án gợi ý (Đáp án A Recommended) + 1 tùy chọn mở** (`ask_question`), lặp lại đến khi chốt từng câu và xác nhận bảng Tổng hợp Q&A (`clarify_and_suggest_rules.md`). | Toàn bộ câu trả lời đã chốt từ **Câu 1 đến Câu 5** của Bước 1. | Hiển thị **Tổng hợp Q & A** trên chat chờ xác nhận `"OK"` ➔ Sinh file `md/analysis/1-problem-survey.md` kèm bảng quyết định `[Đã xác nhận]`. |
 
 ---
 
@@ -167,28 +167,28 @@ flowchart TD
 
 **Mục đích cốt lõi:** Không tự nghĩ ra bảng hay cột theo cảm tính. Toàn bộ **Danh sách Bảng (Collections)**, **Các Trường (Fields)** và **Ràng buộc Khóa ngoại** ở Bước 5 đều được dịch trực tiếp từ **Bước 3** và **Bước 4**.
 
-### 6.1. Bảng Ánh xạ từ Chức năng Cấp 2 (Bước 4) ➔ Danh sách Bảng (`Collections`)
+### 6.1. Bảng Ánh xạ từ Chức năng Cấp 2 (Bước 4) ➔ Danh sách Bảng (`Collections` — `PascalCase`)
 
 | Câu hỏi phân loại Chức năng Cấp 2 | Bản chất tìm kiếm điều gì? | Nguồn dữ liệu (Ánh xạ từ Bước 4) | Quy tắc thiết kế Database ở Bước 5 |
 |---|---|---|---|
-| **1. Danh từ của chức năng là Thực thể độc lập (Master Entity)?** | Đối tượng có vòng đời tạo mới, cập nhật, tìm kiếm, khóa/xóa độc lập (VD: nhân viên, danh mục, bộ truyện...). | **Bước 4 — Nhánh Cấp 2** thuộc nhóm quản lý danh mục / thực thể cốt lõi & Cột *"Bảng DB dự kiến"* trong bảng RBAC. | Sinh ra **1 Collection độc lập** tương ứng (đặt tên danh từ số nhiều, `snake_case`: `users`, `categories`, `novels`...). |
-| **2. Danh từ của chức năng là Thuộc tính / Phạm vi phụ thuộc vào Thực thể cha?** | Thông tin cấu hình hoặc phạm vi gán thêm không tồn tại độc lập ngoài thực thể cha (VD: gán kho phụ trách cho nhân viên, gán mã SKU cho sản phẩm). | **Bước 4 — Nhánh Cấp 2** thuộc nhóm gán quyền hạn/phạm vi hoặc cấu hình thuộc tính con. | **KHÔNG tạo bảng mới!** Ánh xạ thành **1 Trường (`Field`) hoặc Mảng (`Array`)** nhúng ngay trong bảng của Thực thể cha (VD: `employees.warehouse_ids`, `subcategories.sku`). |
-| **3. Chức năng là Phiên xác thực, Chứng từ giao dịch hay Tiến trình chạy ngầm?** | Nghiệp vụ phát sinh theo thời gian, cần lưu vết phiên, lịch sử giao dịch, hàng đợi xử lý hoặc sổ cái đối soát. | • **Bước 4 — Nhánh Cấp 2** nhóm xác thực / giao dịch / tác vụ ngầm.<br>• **Bước 2 — Bảng 2:** Danh sách Tác vụ tự động (Cron/Queue). | Sinh ra **Bảng Phiên / Chứng từ / Hàng đợi / Sổ cái** (`refresh_tokens`, `import_form`, `video_jobs`, `debts`, `stock_histories`...). |
+| **1. Danh từ của chức năng là Thực thể độc lập (Master Entity)?** | Đối tượng có vòng đời tạo mới, cập nhật, tìm kiếm, khóa/xóa độc lập (VD: nhân viên, chi nhánh, bộ truyện...). | **Bước 4 — Nhánh Cấp 2** thuộc nhóm quản lý danh mục / thực thể cốt lõi & Cột *"Bảng DB dự kiến"* trong bảng RBAC. | Sinh ra **1 Collection độc lập** tương ứng, khai báo tên Collection tường minh theo chuẩn **`PascalCase`**: `{ collection: 'Employee' }`, `'Branch'`, `'Novel'`, `'Category'`... |
+| **2. Danh từ của chức năng là Thuộc tính / Phạm vi phụ thuộc vào Thực thể cha?** | Thông tin cấu hình hoặc phạm vi gán thêm không tồn tại độc lập ngoài thực thể cha (VD: gán kho phụ trách cho nhân viên, gán mã SKU cho sản phẩm). | **Bước 4 — Nhánh Cấp 2** thuộc nhóm gán quyền hạn/phạm vi hoặc cấu hình thuộc tính con. | **KHÔNG tạo bảng mới!** Ánh xạ thành **1 Trường (`Field`) hoặc Mảng (`Array`)** dùng `snake_case` nhúng ngay trong bảng của Thực thể cha (VD: `warehouse_ids`, `sku`). |
+| **3. Chức năng là Phiên xác thực, Chứng từ giao dịch hay Tiến trình chạy ngầm?** | Nghiệp vụ phát sinh theo thời gian, cần lưu vết phiên, lịch sử giao dịch, hàng đợi xử lý hoặc sổ cái đối soát. | • **Bước 4 — Nhánh Cấp 2** nhóm xác thực / giao dịch / tác vụ ngầm.<br>• **Bước 2 — Bảng 2:** Danh sách Tác vụ tự động (Cron/Queue). | Sinh ra **Bảng Phiên / Chứng từ / Hàng đợi / Sổ cái** theo chuẩn **`PascalCase`** (`'RefreshToken'`, `'DailyChecklist'`, `'ImportForm'`, `'VideoJob'`, `'Debt'`, `'StockHistory'`...). |
 
-### 6.2. Bảng Ánh xạ sang 4 Nhóm Trường (`Fields`) trong Bảng Đặc tả 4 Cột (`field | type | required | des`)
+### 6.2. Bảng Ánh xạ sang 4 Nhóm Trường (`Fields` — `snake_case`) trong Bảng Đặc tả 4 Cột (`field | type | required | des`)
 
 | Nhóm Trường trong mỗi Bảng | Bản chất câu hỏi tìm kiếm điều gì? | Nguồn dữ liệu (Ánh xạ từ Bước 3 & Bước 4) | Quy tắc khai báo Trường chuẩn ở Bước 5 |
 |---|---|---|---|
-| **Nhóm 1: Khung Định danh & Hệ thống** | Mọi bản ghi trong hệ thống cần những trường nền tảng nào để định danh, quản lý trạng thái khóa mềm và vết thời gian? | Quy ước chuẩn toàn hệ thống tại `3-database/3_db_field_conventions.md`. | • `_id`: `ObjectId, true` (khóa chính & tham chiếu `ref`)<br>• `ID`: `String/Number, unique` (mã nghiệp vụ nếu có)<br>• `status`: `Number, Index, true, default = 1` (`1` hoạt động, `0` khóa)<br>• `createdAt`, `updatedAt`: bật `timestamps: true` |
-| **Nhóm 2: Các Trường Lưu trữ Đầu vào (Input Fields)** | Khi Actor gọi Tạo mới (`POST`) hoặc Cập nhật (`PUT`), hệ thống phải có những cột nào để hứng dữ liệu gửi lên? | • **Bước 3 — Cột *"Dữ liệu Input (Actor gửi vào)"*** trong Bảng 5 cột.<br>• **Bước 4 — Nhánh Cấp 3 (Nhịp 1 - Input)**. | Tạo đúng các trường `snake_case` tương ứng với dữ liệu đầu vào (`name`, `phone`, `price`...). Riêng `password` và `token` mã hóa **`sha512`** (`select: false` cho `password`). |
+| **Nhóm 1: Khung Định danh & Hệ thống** | Mọi bản ghi trong hệ thống cần những trường nền tảng nào để định danh, quản lý trạng thái khóa mềm và vết thời gian? | Quy ước chuẩn toàn hệ thống tại `3-database/3_db_field_conventions.md`. | • `_id`: `ObjectId, true` (khóa chính & tham chiếu `ref`)<br>• `ID`: `String/Number, unique` *(**Chỉ dùng khi có nhu cầu mã nghiệp vụ thực tế** như `NV001`, `PN001`; không gắn máy móc cho bảng cấu hình/danh mục ngắn hoặc bảng đã có `sku`/`barcode`)*<br>• `status`: `Number, Index, true, default = 1` (`1` hoạt động, `0` khóa)<br>• `createdAt`, `updatedAt`: bật `timestamps: true` |
+| **Nhóm 2: Các Trường Lưu trữ Đầu vào (Input Fields)** | Khi Actor gọi Tạo mới (`POST`) hoặc Cập nhật (`PUT`), hệ thống phải có những cột nào để hứng dữ liệu gửi lên? | • **Bước 3 — Cột *"Dữ liệu Input (Actor gửi vào)"*** trong Bảng 5 cột.<br>• **Bước 4 — Nhánh Cấp 3 (Nhịp 1 - Input)**. | Tạo đúng các trường **`snake_case`** tương ứng với dữ liệu đầu vào (`name`, `phone`, `price`, `employee_id`...). Riêng `password` và `token` mã hóa **`sha512`** (`select: false` cho `password`). |
 | **Nhóm 3: Các Trường Tính toán & Đầu ra (Computed / Output Fields)** | Hệ thống cần tự sinh hoặc tự tính thêm những cột nào để phục vụ tìm kiếm tiếng Việt, tổng hợp số liệu hoặc kiểm soát hạn dùng? | • **Bước 3 — Cột *"Dữ liệu Output (Actor nhận lại)"***.<br>• **Bước 4 — Nhánh Cấp 3 (Nhịp 2 - Process & Nhịp 3 - Output)**. | • Có tìm kiếm tiếng Việt theo tên/mã ➔ Bắt buộc thêm `unsign_search: String, Index` (lưu cả có dấu & không dấu chữ thường).<br>• Có tính tổng tiền/thời hạn ➔ Thêm `total_amount: Number, default = 0`, `expired_at: Date`... |
-| **Nhóm 4: Các Trường Khóa ngoại (Foreign Keys) & Toàn vẹn tham chiếu** | Bảng này liên kết cha-con hoặc tham chiếu ($1-N$) tới bảng nào khác? Khi nào phải chặn xóa cứng? | • **Bước 4 — Mối liên hệ giữa các nhánh trên cây FDD**.<br>• **Bước 5 — Sơ đồ liên kết giữa các Collection**. | • Phân cấp cha-con cùng bảng ➔ `parent_id: ObjectId, default: null, Index`.<br>• Tham chiếu bảng khác ➔ `<ten_bang>_id: ObjectId, Index`.<br>• Mọi dây khóa ngoại trỏ vào Bảng A sẽ sinh ra quy tắc **Chặn xóa cứng `409 CONFLICT`** trên Bảng A. |
+| **Nhóm 4: Các Trường Khóa ngoại (Foreign Keys) & Toàn vẹn tham chiếu** | Bảng này liên kết cha-con hoặc tham chiếu ($1-N$) tới bảng nào khác? Khi nào phải chặn xóa cứng? | • **Bước 4 — Mối liên hệ giữa các nhánh trên cây FDD**.<br>• **Bước 5 — Sơ đồ liên kết giữa các Collection**. | • Phân cấp cha-con cùng bảng ➔ `parent_id: ObjectId, default: null, Index`.<br>• Tham chiếu bảng khác ➔ `<ten_bang>_id: ObjectId, Index` (`snake_case`).<br>• Mọi dây khóa ngoại trỏ vào Bảng A sẽ sinh ra quy tắc **Chặn xóa cứng `409 CONFLICT`** trên Bảng A. |
 
 ### 6.3. Bảng Ánh xạ Khóa ngoại & Quy tắc Toàn vẹn Tham chiếu (`4_db_referential_integrity.md`)
 
 | Hạng mục / Câu hỏi kiểm soát toàn vẹn | Bản chất tìm kiếm điều gì? | Nguồn dữ liệu (Ánh xạ từ Bước 4 & Mục 6.1, 6.2) | Quy tắc Ràng buộc & Xóa/Khóa ở Bước 5 |
 |---|---|---|---|
-| **1. Bản ghi nào cấm xóa cứng tuyệt đối?** | Bảo vệ lịch sử định danh và phân quyền của hệ thống. | Các bảng Tài khoản người dùng (`users`/`employees`) và Vai trò (`roles`). | **Tuyệt đối không có API xóa cứng (`DELETE`)**; chỉ khóa mềm bằng `PUT /:id/status` (`status = 0`). |
+| **1. Bản ghi nào cấm xóa cứng tuyệt đối?** | Bảo vệ lịch sử định danh và phân quyền của hệ thống. | Các bảng Tài khoản người dùng (`Employee`/`User`) và Vai trò (`Role`). | **Tuyệt đối không có API xóa cứng (`DELETE`)**; chỉ khóa mềm bằng `PUT /:id/status` (`status = 0`). |
 | **2. Khi nào được xóa cứng (`DELETE`) và khi nào phải chặn `409 CONFLICT`?** | Chống dữ liệu mồ côi (Orphaned Records) khi xóa danh mục hoặc dữ liệu nguồn. | Toàn bộ các **Trường Khóa ngoại (`ref`)** ở Nhóm 4 (Mục 6.2) trỏ về `_id` của Bảng đang xét. | • Chưa có bảng nào tham chiếu ➔ Cho phép xóa cứng (`200 OK`).<br>• Đã có bản ghi tham chiếu (con, sản phẩm, chứng từ, tiến trình) ➔ **Chặn xóa `409 CONFLICT`**, yêu cầu khóa mềm (`status = 0`). |
 | **3. Kiểm tra gì khi truyền khóa ngoại lúc Tạo mới (`POST`) / Cập nhật (`PUT`)?** | Đảm bảo khóa ngoại hợp lệ và cây phân cấp không bị lặp vô hạn. | Các trường `<ten_bang>_id` và `parent_id` trong Request Body. | • Khóa ngoại phải tồn tại và đang hoạt động (`status = 1`), nếu không trả `404 NOT_FOUND`.<br>• Với `parent_id`, kiểm tra chống trỏ vòng lặp vào chính nó hoặc con của nó (sai trả `400 VALIDATION_ERROR`). |
 
@@ -196,24 +196,25 @@ flowchart TD
 
 ## 7. Giải phẫu Bước 6: Thiết kế Tài liệu RESTful API (`4-api/`)
 
-**Mục đích cốt lõi:** Chuyển hóa toàn bộ thiết kế Chức năng (**Bước 4**) và Cơ sở dữ liệu (**Bước 5**) thành **Tài liệu Đặc tả API chuẩn 4 Phần** (`4-api/api_doc_and_postman_standard.md`) trước khi viết code Backend/Frontend ở Bước 7.
+**Mục đích cốt lõi:** Chuyển hóa toàn bộ thiết kế Chức năng (**Bước 4**) và Cơ sở dữ liệu (**Bước 5**) thành **Tài liệu Đặc tả API chuẩn** (`4-api/api_doc_and_postman_standard.md`) trước khi viết code Backend/Frontend ở Bước 7.
 
-| Bố cục 4 Phần & Câu hỏi thiết kế ở Bước 6 | Bản chất tìm kiếm điều gì? | Nguồn dữ liệu (Ánh xạ từ Bước 2, 3, 4, 5) | Quy chuẩn đầu ra trong Tài liệu API ở Bước 6 |
+| Bố cục Tài liệu API & Câu hỏi thiết kế ở Bước 6 | Bản chất tìm kiếm điều gì? | Nguồn dữ liệu (Ánh xạ từ Bước 2, 3, 4, 5) | Quy chuẩn đầu ra trong Tài liệu API ở Bước 6 |
 |---|---|---|---|
-| **Mục 1 — Quy ước chung & Ma trận Phân quyền (RBAC)** | Role nào có quyền `<resource>.<action>` (`read`, `write`, `delete`) trên Resource nào? | **Bước 4 — Bảng Ma trận Phân quyền RBAC & SoD**. | Bảng tổng hợp quyền của từng Role và danh mục mã quyền `<resource>.<action>` dùng cho `JwtAuthGuard` + `RolesGuard` / `ScopeGuard`. |
-| **Mục 2 — Bảng Danh sách Tổng hợp API (URI & HTTP Methods)** | Hệ thống có tổng cộng bao nhiêu Endpoint, ánh xạ từ chức năng FDD nào? | • **Bước 5 (Mục 6.1):** Tên Collection (`snake_case`).<br>• **Bước 4 (Cấp 2 & Cấp 3):** Mã FDD & Nhịp IPO.<br>• **Bước 2 (Bảng 2):** Tác vụ chạy ngầm (Queue). | • Bảng 5 cột: `# \| Method \| Endpoint \| Chức năng (Mã FDD) \| Quyền`.<br>• URI: `/api/v1/<resources>` (danh từ số nhiều, `kebab-case`, route tĩnh đặt trên `/:id`).<br>• Method: `GET`, `POST` (`201`/`202`), `PUT` (**cấm dùng `PATCH`**, tách sub-resource `PUT /:id/status`, `/role`, `/password`), `DELETE` (`200`). |
-| **Mục 3 — Đặc tả Chi tiết từng API (Payload, Query, Logic ngầm, Response, Lỗi)** | Mỗi API nhận dữ liệu gì, validate ra sao, xử lý ngầm gì và trả về cấu trúc JSON nào? | • **Bước 3 (Bảng 5 cột):** Cột *"Dữ liệu Input"* & *"Dữ liệu Output"*.<br>• **Bước 4 (Cấp 3):** Nhịp 1 (Input), Nhịp 2 (Process), Nhịp 3 (Output).<br>• **Bước 5 (Mục 6.2):** Bảng đặc tả 4 cột. | • **Query Params (`GET`):** `camelCase` (`page`, `limit`, `keyword`, `status`, `fromDate`, `toDate`).<br>• **Request / Response Body:** `snake_case`, bọc `{ "data": ... }` / `{ "error": ... }` (không có `statusCode` trong body; ẩn `password`, `unsign_search`, `__v`).<br>• **8 Tầng mã lỗi:** `401` ➔ `403` ➔ `400` ➔ `404` ➔ `409` ➔ `429` ➔ `502/504` ➔ `500`. |
-| **Mục 4 — Bảng Tổng hợp Điều kiện Chặn xóa (`409 CONFLICT`)** | Endpoint `DELETE /api/v1/<resources>/:id` nào phải chặn xóa khi đã phát sinh dữ liệu liên quan? | **Bước 5 (Mục 6.2 & 6.3):** Toàn bộ dây Khóa ngoại (`ref`) trỏ vào từng Collection. | Bảng liệt kê từng Endpoint `DELETE` và danh sách cụ thể các `Bảng.Trường` tham chiếu cần kiểm tra trước khi xóa. |
+| **Phần 0 — Kịch bản Luồng gọi API theo Màn hình (`sequenceDiagram`)** | Trình tự Frontend gọi các API và phối hợp với Backend / Hệ thống tích hợp trên từng màn hình diễn ra như thế nào? | • **Bước 3:** Luồng tương tác Actor - Hệ thống.<br>• **Bước 4:** Các nhánh chức năng Cấp 2 & Cấp 3 (Nhịp IPO). | Sơ đồ `sequenceDiagram` mô tả kịch bản gọi API theo thao tác thực tế của người dùng (FE-First Sequence Scenarios). |
+| **Mục 1 — Quy ước chung & Ma trận Phân quyền (RBAC)** | Cơ chế truyền Token và Role nào có quyền (`function_id` hoặc `<resource>.<action>`) trên Resource nào? | **Bước 4 — Bảng Ma trận Phân quyền RBAC & SoD**. | Quy ước Header xác thực (`Authorization: Bearer <token>` / `req.headers.token`), bảng quyền của từng Role và danh mục mã quyền thực tế. |
+| **Mục 2 — Bảng Danh sách Tổng hợp API (URI & HTTP Methods)** | Hệ thống có tổng cộng bao nhiêu Endpoint, đặt tên URI theo Tài nguyên Nghiệp vụ nào? | • **Bước 4 (Cấp 1, 2, 3):** Miền nghiệp vụ, Mã FDD & Nhịp IPO.<br>• **Bước 5 (Mục 6.1):** Danh sách Collection.<br>• **Bước 2 (Bảng 2):** Tác vụ chạy ngầm (Queue). | • Bảng 5 cột: `# \| Method \| Endpoint \| Chức năng (Mã FDD) \| Quyền`.<br>• **URI:** `/api/v1/<resources>` (danh từ số nhiều, `kebab-case` theo **Domain / Virtual Resource**, route tĩnh `/tree`, `/lookup`, `/statistics`, `/permissions` đặt trên `/:id`).<br>• **Method:** `GET`, `POST` (`201`/`202`), `PUT` (**cấm dùng `PATCH`**, tách sub-resource `PUT /:id/status`, `/role`, `/password`), `DELETE` (`200`). |
+| **Mục 3 — Đặc tả Chi tiết từng API (Payload, Query, Logic ngầm, Response, Lỗi)** | Mỗi API nhận tham số gì, validate ra sao, xử lý ngầm gì và trả về cấu trúc JSON nào? | • **Bước 3 (Bảng 5 cột):** Cột *"Dữ liệu Input"* & *"Dữ liệu Output"*.<br>• **Bước 4 (Cấp 3):** Nhịp 1 (Input), Nhịp 2 (Process), Nhịp 3 (Output).<br>• **Bước 5 (Mục 6.2):** Bảng đặc tả 4 cột. | • **Query Params (`GET`) & Request/Response Body:** Đồng bộ 100% **`snake_case`** (`?page=1&limit=20&keyword=...&status=1&from_date=YYYY-MM-DD&to_date=YYYY-MM-DD`, ngày chuẩn ISO 8601 `YYYY-MM-DD`, phân trang `total_pages`).<br>• Bọc `{ "data": ... }` / `{ "error": ... }` (không lặp `statusCode` trong body; ẩn `password`, `unsign_search`, `__v`).<br>• **8 Tầng mã lỗi:** `401` ➔ `403` ➔ `400` ➔ `404` ➔ `409` ➔ `429` ➔ `502/504` ➔ `500`. |
+| **Mục 4 — Bảng Tổng hợp Điều kiện Chặn xóa & Lỗi Nghiệp vụ (`403 / 409`)** | Endpoint `DELETE /api/v1/<resources>/:id` nào phải chặn xóa khi đã phát sinh dữ liệu liên quan? | **Bước 5 (Mục 6.2 & 6.3):** Toàn bộ dây Khóa ngoại (`ref`) trỏ vào từng Collection. | Bảng liệt kê chính sách xóa dữ liệu của từng Endpoint `DELETE`, danh sách các `Bảng.Trường` tham chiếu cần kiểm tra và bảng mã lỗi toàn hệ thống. |
 
 ---
 
 ## 8. Tóm tắt Quy trình Tài liệu Thực hành Chuẩn cho Mọi Dự án Mới
 
-Khi bắt đầu bất kỳ dự án mới nào, chỉ cần đi tuần tự từng bước với các file phân tích đặt trong thư mục `md/analysis/` và đặt tên bằng **tiếng Anh (`kebab-case`)** (tuân thủ Phase Gate tại `1-core/workflow_phases.md` — hoàn thành và xác nhận từng bước trước khi qua bước kế tiếp):
+Khi bắt đầu bất kỳ dự án mới nào, chỉ cần đi tuần tự từng bước với các file phân tích đặt trong thư mục `md/analysis/` và đặt tên bằng **tiếng Anh (`kebab-case`)** (tuân thủ Phase Gate & Vòng lặp Hỏi - Đáp tại `1-core/workflow_phases.md` và `1-core/clarify_and_suggest_rules.md`):
 1. **`md/requirement.md` (Bước 0):** Đề bài, bối cảnh, nỗi đau và các mục tiêu tổng thể.
-2. **`md/analysis/1-problem-survey.md` (Bước 1):** Trả lời 5 câu hỏi khảo sát bài toán, làm rõ các `[Giả định]` và chốt bảng Quyết định kiến trúc `[Đã xác nhận]`.
-3. **`md/analysis/2-actor-identification.md` (Bước 2):** Từ kết quả Bước 1, quét 7 câu hỏi truy vết để chốt Bảng 1 (Actor chuẩn hóa) và Bảng 2 (Tác vụ tự động).
+2. **`md/analysis/1-problem-survey.md` (Bước 1):** Trả lời 5 câu hỏi khảo sát bài toán qua vòng lặp Q&A và chốt bảng Quyết định kiến trúc `[Đã xác nhận]`.
+3. **`md/analysis/2-actor-identification.md` (Bước 2):** Từ kết quả Bước 1, quét 7 câu hỏi truy vết để chốt Bảng 1 (Actor chuẩn hóa), Bảng 2 (Tác vụ tự động) và Sơ đồ Phân loại Actor.
 4. **`md/analysis/3-dfd-context-diagram.md` (Bước 3):** Vẽ sơ đồ ngữ cảnh DFD Level 0 (Yourdon–DeMarco) và lập bảng Actor - Hành động 5 cột (mã `[Vai trò - STT]`, Input, Output).
 5. **`md/analysis/4-fdd-and-rbac.md` (Bước 4):** Áp dụng công thức chuyển đổi từ Bước 1, 2, 3 sang cây FDD 3 cấp chuẩn MECE và bảng Ma trận phân quyền RBAC.
-6. **`md/analysis/5-database-design.md` (hoặc `md/analysis/db/*.md` — Bước 5):** Ánh xạ từ FDD & DFD sang bảng đặc tả Database 4 cột chuẩn (`field | type | required | des`).
-7. **`md/analysis/6-api-specification.md` (hoặc `md/analysis/api-module-xx.md` — Bước 6):** Đặc tả chi tiết RESTful API theo đúng bố cục 4 phần chuẩn và thiết lập Collection kiểm thử.
+6. **`md/analysis/db/5-database-design.md` (hoặc `md/analysis/5-database-design.md` — Bước 5):** Ánh xạ từ FDD & DFD sang bảng đặc tả Database 4 cột chuẩn (`field | type | required | des`).
+7. **`md/analysis/6-api-specification.md` (hoặc `md/analysis/api-module-xx.md` — Bước 6):** Đặc tả chi tiết RESTful API theo đúng bố cục chuẩn (Phần 0 `sequenceDiagram` + Mục 1..4) và thiết lập Collection kiểm thử.
